@@ -1,0 +1,36 @@
+TODO
+
+Collision detection
+
+parallax mapping
+
+textured lighting
+
+rain
+
+enemy
+
+animate enemy
+
+Game over/ game finish screen
+
+time limit
+
+ghost: https://clara.io/view/9381e504-f9e1-438e-aabe-857d5aec26a6/webgl#
+
+Ideas:
+
+On Flashlight toggle, go to max intensity before settling into standard intensity. Increases battery burn. (Use tween for the intensity curve)
+http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation/
+
+parallax mapping
+http://www.shapespark.com/labs/parallax-mapping/
+
+textured lighting
+http://alteredqualia.com/three/examples/webgl_deferred_arealights_texture.html
+http://www.johannes-raida.de/tutorials/three.js/tutorial07/tutorial07.htm
+
+flickering lights/ lightning strikes through window
+
+if camera intersects window, animate rain
+put insivible ceiling over outside. If camera sees grass ground or invisible ceiling, animate rain

@@ -1,0 +1,128 @@
+<html>
+	<head>
+		<title>Escape</title>
+		<!-- style taken from http://threejs.org/examples/misc_controls_pointerlock.html -->
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+			}
+
+			body {
+				background-color: #ffffff;
+				margin: 0;
+				overflow: hidden;
+				font-family: arial;
+			}
+
+			#blocker {
+
+				position: absolute;
+
+				width: 100%;
+				height: 100%;
+
+				background-color: rgba(0,0,0,0.5);
+
+			}
+
+			#instructions {
+
+				width: 100%;
+				height: 100%;
+
+				display: -webkit-box;
+				display: -moz-box;
+				display: box;
+
+				-webkit-box-orient: horizontal;
+				-moz-box-orient: horizontal;
+				box-orient: horizontal;
+
+				-webkit-box-pack: center;
+				-moz-box-pack: center;
+				box-pack: center;
+
+				-webkit-box-align: center;
+				-moz-box-align: center;
+				box-align: center;
+
+				color: #ffffff;
+				text-align: center;
+
+				cursor: pointer;
+
+			}
+
+		</style>
+	</head>
+	<body>
+		<script src="libjs/three.min.js"></script>
+		<script src="libjs/howler.min.js"></script>
+		<script src="libjs/PointerLockControls.js"></script>
+		<div id="blocker">
+
+			<div id="instructions">
+				<span style="font-size:40px">Click to Play</span>
+				<br />
+				(W, A, S, D = Move, F = Toggle Flashlight, Arrow Keys = Move Flashlight, Move Mouse to Look Around, P = Pause)
+				<br />
+				Get to the exit!
+				<br />
+				Tip: Toggling your flashlight off and on gives you a burst of light, but drains your battery.
+			</div>
+
+		</div>
+		<!-- where most of the variables are -->
+		<script type="x-shader/x-vertex" id="vertexShaderDepth">
+			varying vec2 vUV;
+
+			void main() {
+
+				vUV = 0.75 * uv;
+
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+		</script>
+		<script type="x-shader/x-fragment" id="fragmentShaderDepth">
+			uniform sampler2D texture;
+			varying vec2 vUV;
+
+			vec4 pack_depth( const in float depth ) {
+
+				const vec4 bit_shift = vec4( 256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0, 1.0 );
+				const vec4 bit_mask  = vec4( 0.0, 1.0 / 256.0, 1.0 / 256.0, 1.0 / 256.0 );
+				vec4 res = fract( depth * bit_shift );
+				res -= res.xxyz * bit_mask;
+				return res;
+
+			}
+
+			void main() {
+
+				vec4 pixel = texture2D( texture, vUV );
+
+				if ( pixel.a < 0.5 ) discard;
+
+				gl_FragData[ 0 ] = pack_depth( gl_FragCoord.z );
+
+			}
+		</script>
+		<script src="js/variables.js"></script>
+		<script src="js/textures.js"></script>
+		<script src="js/particles.js"></script>
+		<!-- setting up the controls and player-->
+		<script src="js/controls.js"></script>
+		<script src="js/collisions.js"></script>
+		<script src="js/flashlight.js"></script>
+		<!-- enemy -->
+		<script src="js/enemy.js"></script>
+		<!-- the level -->
+		<script src="js/scene.js"></script>
+		<!-- running the game -->
+		<script src="js/main.js"></script>
+	</body>
+</html>

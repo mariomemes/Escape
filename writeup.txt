@@ -1,0 +1,60 @@
+WRITEUP
+
+Controls and movement adapted from http://threejs.org/examples/misc_controls_pointerlock.html
+
+Collision detection adapted from http://webmaestro.fr/collisions-detection-three-js-raycasting/
+
+textured lighting: http://mrdoob.github.io/three.js/examples/webgl_animation_cloth.html
+
+Since these parts aren't as related to graphics, We believe that it is ok to use them for our project. We have changed the code to make it work for our needs.
+
+Something so simple: if the light comes from your eyes, you can't see the shadows.
+easiest to do, but we simply can't see the shadows then.
+Need to attach object to camera that moves and rotates with the camera since spotlight uses object as target
+
+Threejs allows for shadows, but there are severe limitations with them.
+Shining a light on a shadow does not make the shadow disappear, since the shadows are not "true" shadows. But this allows for real-time rendering, or else performance would take a massive hit.
+https://www.youtube.com/watch?v=NO1AFKsrrrY
+even AAA game titles have this (you can still see the bar shadows on the wall at 0:18 even though the flashlight is on the wall)
+Workaround is to not make the shadows completely opaque (they aren't in real-life anyways due to ambient light)
+
+grass has no shadows due to too much lag (since the grass is multiple planes)
+old grass:
+http://threejs.org/examples/#webgl_materials_grass
+http://stackoverflow.com/questions/11165345/three-js-webgl-transparent-planes-hiding-other-planes-behind-them
+at certain angles, the transparency of the grass planes disappears, leaving only the top layer.
+adding depthWrite:false improves it
+caused large amounts of lag
+
+walls do not actually block shadows, so rooms enclosed completely in walls, you can still see specular lighting on the floor.
+Allowing walls to cast shadows causes artifacts to appear.
+Placing lights strategically allows for a pseudo effect
+
+MUST RUN SERVER TO LOAD TEXTURES
+
+Only one level.
+Creating a level takes a lot of time without a dedicated map editor.
+
+Hardest: collision detection. Only works sometimes.
+
+walls are simply a plane
+
+walls with doors or windows have to be several planes (to enclose the door/window and to give the wall thickness)
+
+grass:
+http://www.rendertextures.com/grass-seamless-texture-20/
+
+rock wall:
+http://www.rendertextures.com/seamless-rock-texture-18/
+
+wood floor:
+https://www.filterforge.com/filters/11289.html
+
+ceiling:
+https://www.filterforge.com/filters/11092.html
+
+ghost sound:
+http://soundbible.com/1030-Zombie-Attack-Walk.html
+
+footsteps:
+https://www.freesound.org/people/Robinhood76/packs/4056/
