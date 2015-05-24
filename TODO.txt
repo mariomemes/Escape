@@ -1,20 +1,9 @@
 TODO
 
-Collision detection
-
-parallax mapping
 
 textured lighting
 
-rain
-
-enemy
-
 animate enemy
-
-Game over/ game finish screen
-
-time limit
 
 ghost: https://clara.io/view/9381e504-f9e1-438e-aabe-857d5aec26a6/webgl#
 
